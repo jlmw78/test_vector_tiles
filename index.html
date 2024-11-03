@@ -92,6 +92,20 @@
 		});
 		layer_ArgenMap_0;
 		map.addLayer(layer_ArgenMap_0);
+		
+		map.createPane('pane_myTile_7');
+		map.getPane('pane_myTile_7').style.zIndex = 402;
+		var layer_myTile_7 = L.tileLayer('https://jlmw78.github.io/test_vector_tiles/tiles/{z}/{x}/{y}.pbf', {
+			pane: 'pane_myTile_7',
+			opacity: 1.0,
+			attribution: '',
+			minZoom: 1,
+			maxZoom: 28,
+			minNativeZoom: 0,
+			maxNativeZoom: 18
+		});
+		layer_ArgenMap_0;
+		map.addLayer(layer_ArgenMap_0);
 
 		function pop_region_patagonia_1(feature, layer) {
 			var popupContent = '<table>\
@@ -544,6 +558,7 @@
 
 		var baseMaps = {};
 		var overlaysTree = [
+			{label: 'region_pampeana<br />', layer: layer_myTile_7},
 			{label: 'region_pampeana<br />', layer: layer_region_pampeana_6},
 			{label: 'region_gran_buenos_aires<br />', layer: layer_region_gran_buenos_aires_5},
 			{label: 'region_noroeste<br />', layer: layer_region_noroeste_4},
