@@ -32,7 +32,7 @@
 		<script src="js/rbush.min.js"></script>
 		<script src="js/labelgun.min.js"></script>
 		<script src="js/labels.js"></script>
-
+		<script src="data/region_patagonia_1.js"></script>
 		<script src="data/region_cuyo_2.js"></script>
 		<script src="data/region_noreste_3.js"></script>
 		<script src="data/region_noroeste_4.js"></script>
@@ -93,7 +93,55 @@
 		layer_ArgenMap_0;
 		map.addLayer(layer_ArgenMap_0);
 
-
+		function pop_region_patagonia_1(feature, layer) {
+			var popupContent = '<table>\
+					<tr>\
+						<th scope="row">NOMPROV</th>\
+						<td>' + (feature.properties['NOMPROV'] !== null ? autolinker.link(feature.properties['NOMPROV'].toLocaleString()) : '') + '</td>\
+					</tr>\
+					<tr>\
+						<th scope="row">PROV</th>\
+						<td>' + (feature.properties['PROV'] !== null ? autolinker.link(feature.properties['PROV'].toLocaleString()) : '') + '</td>\
+					</tr>\
+					<tr>\
+						<th scope="row">NOMDEPTO</th>\
+						<td>' + (feature.properties['NOMDEPTO'] !== null ? autolinker.link(feature.properties['NOMDEPTO'].toLocaleString()) : '') + '</td>\
+					</tr>\
+					<tr>\
+						<th scope="row">DEPTO</th>\
+						<td>' + (feature.properties['DEPTO'] !== null ? autolinker.link(feature.properties['DEPTO'].toLocaleString()) : '') + '</td>\
+					</tr>\
+					<tr>\
+						<th scope="row">COD_2022</th>\
+						<td>' + (feature.properties['COD_2022'] !== null ? autolinker.link(feature.properties['COD_2022'].toLocaleString()) : '') + '</td>\
+					</tr>\
+					<tr>\
+						<th scope="row">COD_2010</th>\
+						<td>' + (feature.properties['COD_2010'] !== null ? autolinker.link(feature.properties['COD_2010'].toLocaleString()) : '') + '</td>\
+					</tr>\
+					<tr>\
+						<th scope="row">COD_2001</th>\
+						<td>' + (feature.properties['COD_2001'] !== null ? autolinker.link(feature.properties['COD_2001'].toLocaleString()) : '') + '</td>\
+					</tr>\
+					<tr>\
+						<th scope="row">COD_1991</th>\
+						<td>' + (feature.properties['COD_1991'] !== null ? autolinker.link(feature.properties['COD_1991'].toLocaleString()) : '') + '</td>\
+					</tr>\
+					<tr>\
+						<th scope="row">region</th>\
+						<td>' + (feature.properties['region'] !== null ? autolinker.link(feature.properties['region'].toLocaleString()) : '') + '</td>\
+					</tr>\
+					<tr>\
+						<th scope="row">se modifico para el: </th>\
+						<td>' + (feature.properties['etiqueta'] !== null ? autolinker.link(feature.properties['etiqueta'].toLocaleString()) : '') + '</td>\
+					</tr>\
+				</table>';
+			var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+		}
 
 		function pop_region_cuyo_2(feature, layer) {
 			var popupContent = '<table>\
@@ -378,7 +426,9 @@
 		}
 
 		// Usar la función para cada región
-
+		function style_region_patagonia_1_0(feature) {
+		  return styleRegion(feature, 'pane_region_patagonia_1');
+		}
 
 		function style_region_cuyo_2_0(feature) {
 		  return styleRegion(feature, 'pane_region_cuyo_2');
@@ -402,7 +452,20 @@
 
 
 
-
+		map.createPane('pane_region_patagonia_1');
+		map.getPane('pane_region_patagonia_1').style.zIndex = 401;
+		map.getPane('pane_region_patagonia_1').style['mix-blend-mode'] = 'normal';
+		var layer_region_patagonia_1 = new L.geoJson(json_region_patagonia, {
+			attribution: '',
+			interactive: true,
+			dataVar: 'json_region_patagonia',
+			layerName: 'layer_region_patagonia_1',
+			pane: 'pane_region_patagonia_1',
+			onEachFeature: pop_region_patagonia_1,
+			style: style_region_patagonia_1_0,
+		});
+		bounds_group.addLayer(layer_region_patagonia_1);
+		map.addLayer(layer_region_patagonia_1);
 
 		map.createPane('pane_region_cuyo_2');
 		map.getPane('pane_region_cuyo_2').style.zIndex = 401;
@@ -486,7 +549,8 @@
 			{label: 'region_noroeste<br />', layer: layer_region_noroeste_4},
 			{label: 'region_noreste<br />', layer: layer_region_noreste_3},
 			{label: 'region_cuyo<br />', layer: layer_region_cuyo_2},
-			
+			{label: 'region_patagonia<br />', layer: layer_region_patagonia_1},
+			{label: '<b>Se modifico para el: <b/><table><tr><td style="text-align: center;"><img src="legend/region_patagonia_1_20012010y20220.png" /></td><td>2001, 2010 y 2022</td></tr><tr><td style="text-align: center;"><img src="legend/region_patagonia_1_2001y20101.png" /></td><td>2001 y 2010</td></tr><tr><td style="text-align: center;"><img src="legend/region_patagonia_1_2001y20222.png" /></td><td>2001 y 2022</td></tr><tr><td style="text-align: center;"><img src="legend/region_patagonia_1_2010y20223.png" /></td><td>2010 y 2022</td></tr><tr><td style="text-align: center;"><img src="legend/region_patagonia_1_20014.png" /></td><td>2001</td></tr><tr><td style="text-align: center;"><img src="legend/region_patagonia_1_20105.png" /></td><td>2010</td></tr><tr><td style="text-align: center;"><img src="legend/region_patagonia_1_20226.png" /></td><td>2022</td></tr><tr><td style="text-align: center;"><img src="legend/region_patagonia_1_sinmodificaciones7.png" /></td><td>sin modificaciones</td></tr></table>'},
 			{label: "ArgenMap", layer: layer_ArgenMap_0},]
 		var lay = L.control.layers.tree(null, overlaysTree,{
 			//namedToggle: true,
